@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aplikasi Chat Realtime</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+      
+        <div id="login-screen" class="screen">
+            <h1>Selamat Datang!</h1>
+            <p>Masukkan nama Anda untuk memulai.</p>
+            <form id="login-form">
+                <div class="form-group">
+                    <input type="text" id="username-input" placeholder="Nama Anda" required autocomplete="off">
+                </div>
+                <button type="submit" class="btn">Masuk</button>
+            </form>
+        </div>
+
+        <div id="group-selection-screen" class="screen" style="display: none;">
+            <h1>Buat atau Gabung Grup</h1>
+            <form id="create-group-form">
+                <button type="submit" class="btn">Buat Grup Baru</button>
+            </form>
+            <p style="margin: 1.5rem 0;">atau</p>
+            <form id="join-group-form">
+                <div class="form-group">
+                    <input type="text" id="group-id-input" placeholder="Masukkan ID Grup (8 digit angka)" required>
+                </div>
+                <button type="submit" class="btn">Gabung ke Grup</button>
+            </form>
+        </div>
+
+        <div id="chat-container">
+            <header id="chat-header">
+                <div id="group-info">
+                    <div>Admin: <span id="admin-name">...</span></div>
+                    <div>Anggota: <span id="member-count">0</span></div>
+                    <div>ID GRUP: <span id="group-id">...</span></div>
+                </div>
+                <div class="header-buttons">
+                    <button id="copy-id-btn">Salin ID</button>
+                    <button id="share-id-btn">Bagikan</button>
+                    <button id="leaderboard-btn">Anggota</button>
+                    <button id="leave-group-btn" class="btn-danger">Keluar</button>
+                </div>
+            </header>
+            <main id="messages-container"></main>
+            <form id="message-form">
+                <input type="text" id="message-input" placeholder="Ketik pesan..." autocomplete="off" required>
+                <button id="send-btn" class="btn">Kirim</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="leaderboard-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Daftar Anggota</h2>
+                <span class="close">&times;</span>
+            </div>
+            <ul id="member-list"></ul>
+        </div>
+    </div>
+
+    <div id="notification"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    
+    <script src="script.js" defer></script>
+</body>
+</html>

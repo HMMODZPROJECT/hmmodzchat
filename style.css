@@ -1,0 +1,387 @@
+/* --- VARIABEL & GAYA DASAR --- */
+:root {
+    --bg-primary: #0f0f23;
+    --bg-secondary: #1a1a2e;
+    --bg-tertiary: #16213e;
+    --text-primary: #e8e8e8;
+    --text-secondary: #a8a8b3;
+    --accent: #00d9ff;
+    --accent-hover: #00a8cc;
+    --danger: #ff4757;
+    --danger-hover: #ff3838;
+    --success: #2ed573;
+    --message-sent: #0fbcf9;
+    --message-received: #2c2c54;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    --border-radius: 12px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+    color: var(--text-primary);
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- KONTAINER UTAMA --- */
+.container {
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    background: var(--bg-secondary);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* --- SCREEN LOGIN & GRUP --- */
+.screen {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.screen h1 {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    background: linear-gradient(45deg, var(--accent), var(--success));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 1rem;
+    background: var(--bg-tertiary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+}
+
+.btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--accent);
+    color: var(--bg-primary);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 217, 255, 0.4);
+}
+
+.btn-danger {
+    background: var(--danger);
+}
+.btn-danger:hover {
+    background: var(--danger-hover);
+    box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+}
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    width: auto;
+}
+
+/* --- CHAT CONTAINER --- */
+#chat-container {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+}
+
+#chat-header {
+    background: var(--bg-tertiary);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+    flex-wrap: wrap; /* Agar tidak pecah di layar kecil */
+}
+
+#group-info {
+    display: flex;
+    flex-direction: column; /* Tampilkan info grup vertikal */
+    gap: 0.2rem;
+}
+
+#group-info span {
+    font-size: 0.9rem;
+}
+
+#group-id {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.header-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.header-buttons button {
+    background: none;
+    border: 1px solid var(--text-secondary);
+    color: var(--text-secondary);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.8rem;
+}
+
+.header-buttons button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+#messages-container {
+    flex-grow: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+/* Scrollbar Styling */
+#messages-container::-webkit-scrollbar { width: 6px; }
+#messages-container::-webkit-scrollbar-track { background: var(--bg-secondary); }
+#messages-container::-webkit-scrollbar-thumb { background: var(--bg-tertiary); border-radius: 3px; }
+
+.message {
+    max-width: 75%;
+    padding: 0.8rem 1.2rem;
+    border-radius: var(--border-radius);
+    line-height: 1.5;
+    animation: slideInUp 0.3s ease-out;
+    position: relative;
+    word-wrap: break-word;
+}
+
+/* --- GAYA UNTUK TOMBOL HAPUS PESAN (ADMIN ONLY) --- */
+.message .delete-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--text-secondary);
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.2s;
+}
+
+.message:hover .delete-btn {
+    opacity: 1;
+}
+
+.message .delete-btn:hover {
+    background: var(--danger);
+    color: white;
+}
+
+.message.sent {
+    background: var(--message-sent);
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+}
+
+.message.received {
+    background: var(--message-received);
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+}
+
+.message .sender {
+    font-size: 0.75rem;
+    opacity: 0.8;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+}
+
+.system-message {
+    align-self: center;
+    background: none;
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+}
+
+#message-form {
+    display: flex;
+    padding: 1rem;
+    background: var(--bg-tertiary);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+#message-input {
+    flex-grow: 1;
+    padding: 0.8rem;
+    background: var(--bg-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+#message-input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+#send-btn {
+    width: auto;
+    padding: 0.8rem 1.5rem;
+}
+
+/* --- MODAL LEADERBOARD --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+    background-color: var(--bg-secondary);
+    margin: 5% auto;
+    padding: 1.5rem;
+    border: 1px solid var(--bg-tertiary);
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: slideInDown 0.4s ease-out;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+}
+
+.close {
+    color: var(--text-secondary);
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.close:hover { color: var(--danger); }
+
+#member-list {
+    list-style: none;
+}
+#member-list li {
+    padding: 0.8rem;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeIn 0.5s ease-out;
+}
+.member-name {
+    font-weight: bold;
+}
+.member-actions button {
+    margin-left: 0.3rem;
+    font-size: 0.8rem;
+}
+
+/* --- NOTIFIKASI --- */
+#notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    background: var(--danger);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    z-index: 2000;
+    transition: transform 0.5s ease-out;
+}
+
+#notification.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* --- ANIMASI --- */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes slideInUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+@keyframes slideInDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
